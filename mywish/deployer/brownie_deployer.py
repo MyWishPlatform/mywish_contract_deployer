@@ -30,7 +30,7 @@ class BrownieDeployer(IDeployer):
             account_pass,
             private_key,
             contract_name,
-            etherscan_api_token,
+            dev_api_token,
             provider: str = None,
             provider_id: str = None,
             constructor_params: List[str] = None,
@@ -45,7 +45,7 @@ class BrownieDeployer(IDeployer):
         :param private_key: The private of the account that will be used when deploying contracts
         :param network: Network where contract will be deployed
         :param contract_name: Contract name which will be used in deployment script
-        :param etherscan_api_token: Developer Etherscan API token
+        :param dev_api_token: Developer API token for network
         :param provider: Provider to use if network needs provider
         :param provider_id: Provider ID
         :param constructor_params: Params which will be used in contract deployment
@@ -84,7 +84,7 @@ class BrownieDeployer(IDeployer):
 
             self._set_provider_if_need(provider, provider_id)
 
-            self._set_etherscan_api_token(etherscan_api_token)
+            self._set_developer_api_token(network, dev_api_token)
             try:
                 run(script_path=script_path, project=project_dir)
             except Exception as e:
@@ -307,11 +307,18 @@ def main():
         with open(f'{project_dir}/brownie-config.yaml', "w") as config_file:
             yaml.dump(config_dict, config_file)
 
-    def _set_etherscan_api_token(self, etherscan_api_token: str) -> None:
+    def _set_developer_api_token(self, network: str, dev_api_token: str) -> None:
         """
         Adds etherscan api token for contract code verification to
         the environment variables
 
-        :param etherscan_api_token: Developer Etherscan API token
+        :param dev_api_token: Developer Etherscan API token
         """
-        os.environ['ETHERSCAN_TOKEN'] = etherscan_api_token
+
+        tokens_for_networks = {
+            'ropsten': 'ETHERSCAN_TOKEN',
+            'bsc-test': 'BSCSCAN_TOKEN',
+        }
+
+        token_name = tokens_for_networks[network]
+        os.environ[token_name] = dev_api_token
