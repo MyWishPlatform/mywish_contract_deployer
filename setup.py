@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='mywish_deployer',
-    version='0.3.5',
+    version='0.3.6',
     url='https://github.com/MyWishPlatform/mywish_contract_deployer',
     include_package_data=True,
     zip_safe=False,

@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 import dotenv
-
 from mywish import BrownieDeployer
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +20,7 @@ contract = brownie_deployer.deploy(
     private_key=os.environ['PRIVATE_KEY'],
     network='ropsten',
     contract_name='MainToken',
-    etherscan_api_token=os.environ['ETHERSCAN_API_TOKEN'],
+    dev_api_token=os.environ['ETHERSCAN_API_TOKEN'],
     provider='WEB3_INFURA_PROJECT_ID',
     provider_id=os.environ['PROVIDER_ID'],
 )
@@ -38,7 +37,7 @@ swap_contract = brownie_deployer.deploy(
     private_key=os.environ['PRIVATE_KEY'],
     network='ropsten',
     contract_name='SwapContract',
-    etherscan_api_token=os.environ['ETHERSCAN_API_TOKEN'],
+    dev_api_token=os.environ['ETHERSCAN_API_TOKEN'],
     provider='WEB3_INFURA_PROJECT_ID',
     provider_id=os.environ['PROVIDER_ID'],
     constructor_params=[
@@ -66,7 +65,7 @@ contract = brownie_deployer.deploy(
     account_pass='test_password',
     private_key=os.environ['PRIVATE_KEY'],
     network='ropsten',
-    etherscan_api_token=os.environ['ETHERSCAN_API_TOKEN'],
+    dev_api_token=os.environ['ETHERSCAN_API_TOKEN'],
     contract_name='MainToken',
     provider='WEB3_INFURA_PROJECT_ID',
     provider_id=os.environ['PROVIDER_ID'],
