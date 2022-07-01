@@ -59,7 +59,7 @@ class BrownieDeployer(IDeployer):
         with TemporaryDirectory() as tmp_dir:
 
             project_dir = Path(tmp_dir)
-
+            print(project_dir)
             try:
                 new(str(project_dir))
             except Exception as e:
@@ -121,6 +121,7 @@ from contextvars import ContextVar
 def main():
     if network.is_connected():
         if not network.show_active() == '{1}':
+            network.disconnect()
             network.connect('{1}')
     else:
         network.connect('{1}')
@@ -168,6 +169,7 @@ from contextvars import ContextVar
 def main():
     if network.is_connected():
         if not network.show_active() == '{1}':
+            network.disconnect()
             network.connect('{1}')
     else:
         network.connect('{1}')
